@@ -15,7 +15,7 @@ const chat = async (teks, msg) => {
 
      const response = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: `${teks.replace("!ai", "")}.`,
+        prompt: `${teks.replace("!ai", "").trim()}.`,
         temperature: 0.9,
         max_tokens: 3500,
         frequency_penalty: 0.5,
