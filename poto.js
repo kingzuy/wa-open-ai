@@ -13,10 +13,9 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-// Menambahkan pengecekan apakah ada input teks atau tidak
 const poto = async (teks, msg) => {
 
-    const user = msg.author.replace('@g.us', '').replace('@c.us', '') || msg.from.replace('@g.us', '').replace('@c.us', '');
+    const user = msg.author || msg.from;
 
     const response = await openai.createImage({
         prompt: teks.replace("!img", ""),
@@ -34,7 +33,7 @@ const poto = async (teks, msg) => {
    
     msg.reply(media);
 
-    console.log(chalk.black(chalk.bgWhite('[ RESPONSE ]')), color('Gambar telah di kirim', 'turquoise'), chalk.magenta('TO'), chalk.yellow(`[ +${user} ]`));
+    console.log(chalk.black(chalk.bgWhite('[ RESPONSE ]')), color('Gambar telah di kirim', 'turquoise'), chalk.magenta('TO'), chalk.yellow(`[ +${user.replace('@g.us', '').replace('@c.us', '')} ]`));
 }
 
 module.exports = {
